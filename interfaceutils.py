@@ -1,3 +1,6 @@
+import sys
+import termios
+import tty
 from os import name, system
 
 
@@ -18,3 +21,14 @@ def clear():
     # for mac and linux(here, os.name is 'posix')
     else:
         _ = system('clear')
+
+
+def getch():
+    fd = sys.stdin.fileno()
+    old_settings = termios.tcgetattr(fd)
+    tty.setraw(sys.stdin.fileno())
+
+    ch = sys.stdin.read(1)
+
+    termios.tcsetattr(fd, termios.TCSADRAIN, old_settings)
+    return ch

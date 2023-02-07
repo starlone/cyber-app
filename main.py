@@ -1,6 +1,6 @@
 import testip
 from chat import client, server
-from interfaceutils import clear, draw_menu, draw_toolbar
+from interfaceutils import clear, draw_menu, draw_toolbar, getch
 
 __title__ = 'CyberAPP'
 
@@ -9,14 +9,14 @@ def main_menu():
     clear()
     draw_toolbar(__title__)
     draw_menu(('Chat', 'Test IP and PORT'))
-    return input('Option: ')
+    return getch()
 
 
 def chat_menu():
     clear()
     draw_toolbar(__title__ + ' - Chat')
     draw_menu(('Server', 'Client', 'Back'))
-    return input('Option: ')
+    return getch()
 
 
 def test_ip_port():
@@ -35,7 +35,8 @@ def test_ip_port():
     else:
         print("Unavailable")
 
-    return input('\n\nEnter any key to continue')
+    print('\n\nEnter any key to continue')
+    return getch()
 
 
 def main():
