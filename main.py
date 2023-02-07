@@ -1,6 +1,3 @@
-import curses
-from curses import window, wrapper
-
 import testip
 from chat import client, server
 from interfaceutils import clear, draw_menu, draw_toolbar
@@ -12,7 +9,6 @@ def main_menu():
     clear()
     draw_toolbar(__title__)
     draw_menu(('Chat', 'Test IP and PORT'))
-    print('\nEnter a menu number or any other key to exit')
     return input('Option: ')
 
 
@@ -20,7 +16,6 @@ def chat_menu():
     clear()
     draw_toolbar(__title__ + ' - Chat')
     draw_menu(('Server', 'Client', 'Back'))
-    print('\nEnter a menu number or any other key to exit')
     return input('Option: ')
 
 
