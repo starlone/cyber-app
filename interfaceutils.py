@@ -1,15 +1,20 @@
-import curses
 from curses import A_REVERSE, window
+from os import name, system
 
 
-def draw_menu(stdscr: window, items):
+def draw_menu(items):
     for i, item in enumerate(items):
-        stdscr.addstr('\n{} - {}'.format(i + 1, item))
+        print('{} - {}'.format(i + 1, item))
 
 
-def draw_toolbar(stdscr: window, text):
-    empty = curses.COLS - len(text)
-    fill = (' ' * empty)
-    newtext = text + fill  # Fill with spaces
-    stdscr.addstr(newtext, A_REVERSE)
-    stdscr.addstr('\n')
+def draw_toolbar(text):
+    print(text)
+
+
+def clear():
+    # for windows
+    if name == 'nt':
+        _ = system('cls')
+    # for mac and linux(here, os.name is 'posix')
+    else:
+        _ = system('clear')

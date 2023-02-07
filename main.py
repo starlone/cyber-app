@@ -2,70 +2,63 @@ import curses
 from curses import window, wrapper
 
 import testip
-from interfaceutils import draw_menu, draw_toolbar
+from chat import client, server
+from interfaceutils import clear, draw_menu, draw_toolbar
 
 __title__ = 'CyberAPP'
 
 
-def main_menu(stdscr: window):
-    stdscr.clear()
-    draw_toolbar(stdscr, __title__)
-    draw_menu(stdscr, ('Chat', 'Test IP and PORT'))
-    stdscr.addstr('\n\nPress a menu number or any other key to exit')
-
-    stdscr.refresh()
-    return stdscr.getkey()
+def main_menu():
+    clear()
+    draw_toolbar(__title__)
+    draw_menu(('Chat', 'Test IP and PORT'))
+    print('\nEnter a menu number or any other key to exit')
+    return input('Option: ')
 
 
-def chat_menu(stdscr: window):
-    stdscr.clear()
-    draw_toolbar(stdscr, __title__ + ' - Chat')
-    draw_menu(stdscr, ('Server', 'Client', 'Back'))
-    stdscr.addstr('\n\nPress a menu number or any other key to exit')
-
-    stdscr.refresh()
-    return stdscr.getkey()
+def chat_menu():
+    clear()
+    draw_toolbar(__title__ + ' - Chat')
+    draw_menu(('Server', 'Client', 'Back'))
+    print('\nEnter a menu number or any other key to exit')
+    return input('Option: ')
 
 
-def test_ip_port(stdscr: window):
-    stdscr.clear()
-    draw_toolbar(stdscr, __title__ + ' - Test IP and Port')
-    curses.echo()
+def test_ip_port():
+    clear()
+    draw_toolbar(__title__ + ' - Test IP and Port')
 
-    stdscr.addstr("IP: ")
-    ip = stdscr.getstr(20)
+    ip = input("IP: ")
 
-    stdscr.addstr("PORT: ")
-    port = stdscr.getstr(5)
+    port = input("PORT: ")
 
-    stdscr.addstr("Result: ")
+    print("Result: ")
     result = testip.test_ip_port(ip, int(port))
 
-    curses.noecho()
-
     if result == 0:
-        stdscr.addstr("Available")
+        print("Available")
     else:
-        stdscr.addstr("Unavailable")
+        print("Unavailable")
 
-    stdscr.addstr('\n\nPress any key to continue')
-
-    stdscr.refresh()
-    return stdscr.getkey()
+    return input('\n\nEnter any key to continue')
 
 
-def main(stdscr: window):
-    key = main_menu(stdscr)
+def main():
+    key = main_menu()
 
     match key:
         case '1':
-            key = chat_menu(stdscr)
-            if key == '3':
-                main(stdscr)
+            key = chat_menu()
+            if key == '1':
+                server.start()
+            elif key == '2':
+                client.start()
+            elif key == '3':
+                main()
         case '2':
-            test_ip_port(stdscr)
-            main(stdscr)
+            test_ip_port()
+            main()
 
 
 if __name__ == '__main__':
-    wrapper(main)
+    main()
