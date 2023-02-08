@@ -1,6 +1,7 @@
 from chat import client, server
 from interfaceutils import clear, draw_menu, draw_toolbar, getch
 from scan import testip
+from scan.bannergrabbing import banner_grabbing
 from scan.scanports import scan
 
 __title__ = 'CyberAPP'
@@ -9,7 +10,7 @@ __title__ = 'CyberAPP'
 def main_menu():
     clear()
     draw_toolbar(__title__)
-    draw_menu(('Chat', 'Test IP and PORT', 'PortScan'))
+    draw_menu(('Chat', 'Test IP and PORT', 'PortScan', 'Banner Grabbing'))
     return getch()
 
 
@@ -79,6 +80,22 @@ def scan_ports(ports):
             print(i['host'] + ":" + str(i['port']))
 
 
+def test_banner_grabbing():
+    clear()
+    draw_toolbar(__title__ + ' - Banner Grabbing')
+
+    ip = input("IP: ")
+
+    port = input("PORT: ")
+
+    print("Result: ")
+    result = banner_grabbing(ip, int(port))
+    print(result)
+
+    print('\n\nEnter any key to continue')
+    return getch()
+
+
 def main():
     key = main_menu()
 
@@ -96,6 +113,9 @@ def main():
             main()
         case '3':
             portscan_menu()
+            main()
+        case '4':
+            test_banner_grabbing()
             main()
 
 
