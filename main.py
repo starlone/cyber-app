@@ -1,5 +1,6 @@
 from chat import client, server
-from interfaceutils import clear, draw_menu, draw_toolbar, getch
+from interfaceutils import (clear, draw_menu, draw_toolbar,
+                            getkey_to_continue, getch)
 from packet_sniffer.packet_sniffer import packet_sniffer
 from scan import testip
 from scan.bannergrabbing import banner_grabbing
@@ -52,8 +53,7 @@ def test_ip_port():
     else:
         print("Unavailable")
 
-    print('\n\nEnter any key to continue')
-    return getch()
+    return getkey_to_continue()
 
 
 def portscan_menu():
@@ -69,8 +69,7 @@ def portscan_menu():
         ports = range(1024, 49151)
         scan_ports(ports)
 
-    print('\n\nEnter any key to continue')
-    return getch()
+    return getkey_to_continue()
 
 
 def scan_ports(ports):
@@ -94,8 +93,7 @@ def test_banner_grabbing():
     result = banner_grabbing(ip, int(port))
     print(result)
 
-    print('\n\nEnter any key to continue')
-    return getch()
+    return getkey_to_continue()
 
 
 def print_packet_sniffer(resp):
@@ -117,8 +115,7 @@ def test_packet_sniffer():
     except KeyboardInterrupt:
         print('\n\nKeyboard interrupt!')
 
-    print('\n\nEnter any key to continue')
-    return getch()
+    return getkey_to_continue()
 
 
 def main():

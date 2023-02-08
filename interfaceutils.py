@@ -38,3 +38,8 @@ def getch():
 
     termios.tcsetattr(fd, termios.TCSADRAIN, old_settings)
     return ch
+
+
+def getkey_to_continue():
+    print('\n\nEnter any key to continue')
+    return getch()
