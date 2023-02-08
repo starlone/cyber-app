@@ -8,11 +8,17 @@ def banner_grabbing(host, port):
         if s.connect_ex((host, port)) == 0:
             s.connect((host, port))
             if port in (80, 443):
-                message = 'GET / HTTP/1.1\r\n\r\n'.encode()
+                message = 'GET /\r\n\r\n'.encode()
                 s.sendall(message)
                 banner = s.recv(4096)
             else:
-                banner = s.recv(1024)
+                try:
+                    banner = s.recv(1024)
+                except TimeoutError:
+                    # If timeout, try http
+                    message = 'GET /\r\n\r\n'.encode()
+                    s.sendall(message)
+                    banner = s.recv(4096)
     finally:
         s.close()
     return banner
