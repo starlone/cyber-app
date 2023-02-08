@@ -1,6 +1,7 @@
-import testip
 from chat import client, server
 from interfaceutils import clear, draw_menu, draw_toolbar, getch
+from scan import testip
+from scan.scanports import scan
 
 __title__ = 'CyberAPP'
 
@@ -8,7 +9,7 @@ __title__ = 'CyberAPP'
 def main_menu():
     clear()
     draw_toolbar(__title__)
-    draw_menu(('Chat', 'Test IP and PORT'))
+    draw_menu(('Chat', 'Test IP and PORT', 'PortScan'))
     return getch()
 
 
@@ -52,6 +53,32 @@ def test_ip_port():
     return getch()
 
 
+def portscan_menu():
+    clear()
+    draw_toolbar(__title__ + ' - PortScan')
+
+    draw_menu(('Well-known ports', 'Registered ports'))
+    key = getch()
+    if key == '1':
+        ports = range(1, 1024)
+        scan_ports(ports)
+    elif key == '2':
+        ports = range(1024, 49151)
+        scan_ports(ports)
+
+    print('\n\nEnter any key to continue')
+    return getch()
+
+
+def scan_ports(ports):
+    print("\nScanning ports...")
+    result = scan('localhost', ports)
+    print('Open ports: ')
+    for i in result:
+        if i['result'] == 0:
+            print(i['host'] + ":" + str(i['port']))
+
+
 def main():
     key = main_menu()
 
@@ -66,6 +93,9 @@ def main():
                 main()
         case '2':
             test_ip_port()
+            main()
+        case '3':
+            portscan_menu()
             main()
 
 
