@@ -1,7 +1,7 @@
+import os
 import sys
 import termios
 import tty
-from os import name, system
 
 
 def draw_menu(items):
@@ -11,16 +11,22 @@ def draw_menu(items):
 
 
 def draw_toolbar(text):
+    # Get the size of the terminal
+    size = os.get_terminal_size().columns
+    line = '-' * size
+    print(line)
     print(text)
+    print(line)
+    print()
 
 
 def clear():
     # for windows
-    if name == 'nt':
-        _ = system('cls')
+    if os.name == 'nt':
+        _ = os.system('cls')
     # for mac and linux(here, os.name is 'posix')
     else:
-        _ = system('clear')
+        _ = os.system('clear')
 
 
 def getch():
