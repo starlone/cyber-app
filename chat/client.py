@@ -1,11 +1,12 @@
 # Echo client program
 import socket
 
-def start():
-    HOST = 'localhost'    # The remote host
-    PORT = 50007              # The same port as used by the server
+
+def start(host='localhost', port=5007):
     with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as s:
-        s.connect((HOST, PORT))
-        s.sendall(b'Hello, world')
+        s.connect((host, port))
+        message = input("Enter a phrase to send to the server: ")
+
+        s.sendall(message.encode())
         data = s.recv(1024)
     print('Received', repr(data))

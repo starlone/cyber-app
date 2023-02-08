@@ -19,6 +19,19 @@ def chat_menu():
     return getch()
 
 
+def chat_start_server():
+    clear()
+    draw_toolbar(__title__ + ' - Chat - Server')
+    print()
+    server.start()
+
+
+def chat_start_client():
+    clear()
+    draw_toolbar(__title__ + ' - Chat - Client')
+    client.start()
+
+
 def test_ip_port():
     clear()
     draw_toolbar(__title__ + ' - Test IP and Port')
@@ -46,9 +59,9 @@ def main():
         case '1':
             key = chat_menu()
             if key == '1':
-                server.start()
+                chat_start_server()
             elif key == '2':
-                client.start()
+                chat_start_client()
             elif key == '3':
                 main()
         case '2':
