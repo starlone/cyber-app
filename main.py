@@ -1,9 +1,9 @@
 from chat import client, server
-from interfaceutils import (clear, draw_menu, draw_toolbar,
-                            getkey_to_continue, getch)
-from packet_sniffer.packet_sniffer import packet_sniffer
+from interfaceutils import (clear, draw_menu, draw_toolbar, getch,
+                            getkey_to_continue)
 from scan import testip
 from scan.bannergrabbing import banner_grabbing
+from scan.packet_sniffer import packet_sniffer
 from scan.scanports import scan
 
 __title__ = 'CyberAPP'
